@@ -1,5 +1,5 @@
-
 import java.util.*;// для работы с временем
+
 public class Main {
 
     /*
@@ -28,16 +28,9 @@ public class Main {
     public static int pos; // позиция, на основе х и у || x=1 y=1 pos=1
     public static boolean mayak; // если false, то тупик
     public static boolean komplekt=false;// если true -> варианты закончились, финал
+    public static String rl="";// уникальная последовательность переходов
 //**************************************************************
 
-
-
-    public static JUMPER[] jump=new JUMPER[20000];
-
-    public static String rl="";// уникальная последовательность переходов
-    public static int[] reloca = new int[100];// массив - уникальная последовательность переходов
-    //   public static int[] reloca2 = new int[100];// массив - уникальная последовательность переходов
-    public static RC TR=new RC();
 
     static String time_format_rgr(long milis){
         String T="";
@@ -68,87 +61,9 @@ public class Main {
             System.out.println();
         }
     }
-    static void cls_rgr(int [][] e)
-    {
-        for (int i=e.length-1;i>=0;i--)
-        {
-            for (int j=0;j<=e[i].length-1;j++)
-            {
-                e[i][j]=0;
-            }
+    static void cls_rgr(int [][] e) // *******  очистка экрана  *******
+    {   for (int i=e.length-1;i>=0;i--) { for (int j=0;j<=e[i].length-1;j++)  { e[i][j]=0;  }  }  }
 
-        }
-    }
-
-
-
-    static int dehex(String HEX)//из двоичной в десятичную
-    { return Integer.parseInt(HEX,2);}
-    static String hex(int dex)// из десятичной в двоичную
-    {return Integer.toBinaryString(dex);}
-
-    //***************** из массива в десятичное *********
-    static int ACP(boolean[] analog)
-    {
-        String stroka="";
-        for (int i=7; i>=0;i--){
-            if (analog[i]==false){stroka+="0";}
-            else {stroka+="1";}
-        }
-        return Integer.parseInt(stroka,2);
-    }
-
-    //****************** из десятичного в массив ************
-    static boolean[] CAP(int dex){
-        boolean[] analog=new  boolean[8];
-        String hex=Integer.toBinaryString(dex);
-        for (int i=7; i>=0;i--){
-            if (hex.charAt(i)=='1'){analog[i]=true;}}
-
-        return analog ;
-    }
-    //********** фуська вывода на экран массива направлений (для отладки) *******
-    static void tablo(boolean[] analog){
-        for (int i=7; i>=0;i--){
-            System.out.println(i+" == "+analog[i]);
-        }
-        System.out.println("");
-        if (analog[7])System.out.print(".*.");
-        else System.out.print(".◦.");
-        if (analog[0])System.out.println("*.");
-        else System.out.println("◦.");
-        if (analog[6])System.out.print("*...");
-        else System.out.print("◦...");
-        if (analog[1])System.out.println("*");
-        else System.out.println("◦");
-        System.out.println("..@..");
-        if (analog[5])System.out.print("*...");
-        else System.out.println("◦...");
-        if (analog[2])System.out.println("*");
-        else System.out.println("◦");
-        if (analog[4])System.out.print(".*.");
-        else System.out.print(".◦.");
-        if (analog[3])System.out.println("*.");
-        else System.out.println("◦.");
-
-
-
-    }
-
-
-    static int GEN_ID(int a,int b,int numb)// **** генератор уникального id *****
-    {
-        int id=a+(b*100)+(numb*10000);//xy_x1y1_номер записи
-        return id;
-    }
-
-    static String SHAGI(boolean[] ss)
-    {String shag="";
-        for (int ii=7; ii>=0;ii--){
-            if (ss[ii]==false){shag+="0";}
-            else {shag+="1";}
-        }
-        return shag;}
 
     static boolean scan(int napr){
         rl="";
@@ -191,14 +106,9 @@ public class Main {
         pos=x+((y-1)*5);// позиция для облегчения идентификации джампов
 
         HOD++;
-        //ir+=1;
         reloc+=(char)pos;
         actual[x][y]=HOD;
-        reloca[HOD]=pos;
 
-        //if (HOD==12){relocs[2]=reloc ;System.out.println("x="+x+" y="+y+" "+pos+"  "+(char)pos);}
-
-        //System.out.println("x= "+x+"   y= "+y+"   "+pos);
 
     }
 
@@ -261,50 +171,14 @@ public class Main {
         int[][] morre = new int[10000][10];
         y = (startpos-1)/5+1;
         x = startpos - ((y - 1) * 5);
-
         actual[x][y] = 1;
 
         System.out.print("♞ МАГИЯ ЧИСЕЛ! ♞\n \n");
-       /* int m =9; ///размерность массива
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= m; j++) {
-
-                int r=(i-1)*m+j;
-                System.out.print("[" + nn(r)+"]");
-            }
-            System.out.println();
-        }
-        /*ekran(actual);
-        actual[1][2]=77;
-        ekran(actual);
-
-        shag[7]=true;
-        shag[6]=true;
-        shag[5]=true;
-        shag[4]=true;
-        shag[3]=true;
-        shag[2]=true;
-        shag[1]=true;
-        shag[0]=true;
-        System.out.println (dehex("00000011"));
-        System.out.println (hex(2));
-        System.out.println (SHAGI(shag));
-        System.out.println (dehex(SHAGI(shag)));*/
-
         System.out.println("x=" + x + "   y=" + y);
+
         for (int i = 0; i <= MAXIMUM; i++) {RGR();
             if (komplekt==true)break;}
 
-/*        int x7,y7,pos7;
-        pos7=1;
-        x7=pos7;
-        y7=pos7;
-        for (int i=1;i<=25;i++) {
-            pos7=i;
-            y7=(pos7-1)/5+1;
-            x7=pos7-((y7-1)*5);
-            System.out.println("поле==>" + pos7 + "  x=" + x7 + "  y=" + y7 );
-        }*/
         //*************  отчёт  **********
         komplekt=false;
         System.out.println("точка входа "+startpos);
@@ -314,54 +188,6 @@ public class Main {
         System.out.println("затрачено времени=>  " + time_format_rgr(timeWorkCode));
         System.out.println("---= T H E    E N D =---");
     }
-
-
-
-
-/*        String tst11="1p3956789";
-        System.out.println("===="+tst11.charAt(1));
-        if (tst11.charAt(3)=='9')System.out.println("=== TEST OK ===");*/
-
-/*        shag[7]=false;
-        shag[6]=true;
-        shag[5]=true;
-        shag[4]=false;
-        shag[3]=true;
-        shag[2]=true;
-        shag[1]=true;
-        shag[0]=true;
-
-        tablo(shag);*/
-/*        String ok="";
-    for (int ik=0;ik<110;ik++){
-        System.out.println(ik+" ==> "+(char)ik);
-        ok+=(char)ik;
-    }
-    System.out.println(ok);
-        for (int ik=0;ik<110;ik++){
-            System.out.println(ik+" ==> "+(int) ok.charAt(ik));
-            //ok+=(char)ik;
-        }*/
-
-}
-
-class RC{ // ************* КЛЮЧЕВАЯ ТОЧКА *********
-    int ID; // хз, надо или нет?
-    boolean status; // актуальна или нет ключевая точка
-    int NX,lastx,lasty;// номер хода//предыдущие координаты
-    int fd,bd,ud; // свободные//занятые//провереные направления ♞
-    int ROAD [][][];// путь к КТ - [номер хода], [x], [y]
-
-    void display(){System.out.printf("\nключевая точка %d\n" +
-            "статус=> %b \nномер хода=> %d",ID,status,NX);}
-
-}
-
-class JUMPER{// ********** ТУПИКОВЫЕ ПЕРЕХОДЫ ***********
-    int numb;// номер хода
-    int a,b;// точки входа--> выхода
-    boolean status; //если true, то не тупик
-    int ID;
 
 
 }
